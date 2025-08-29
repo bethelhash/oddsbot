@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OddsBot</title>
+  <meta charset="utf-8">
+  <style>
+    body{font-family:Arial;background:#111;color:#fff;text-align:center;margin-top:50px}
+    input{width:120px;height:35px;font-size:18px;text-align:center;margin:5px}
+    button{padding:15px 25px;font-size:16px;background:#0074d9;color:#fff;border:none;border-radius:8px;margin:10px}
+    .card{background:#222;border-radius:12px;margin:20px auto;padding:20px;width:320px}
+  </style>
+</head>
+<body>
+  <h1>⚽ OddsBot</h1>
+
+  <!-- FREE tier -->
+  <div class="card">
+    <h2>Free Tier</h2>
+    <p id="free">Manual odds + calculator</p>
+  </div>
+
+  <!-- Calculator -->
+  <div class="card">
+    <h2>Calculator</h2>
+    <input id="o1" placeholder="Odd 1" type="number" step="0.01">
+    <input id="o2" placeholder="Odd 2" type="number" step="0.01">
+    <button onclick="calc()">Calc Arbitrage</button>
+    <p id="calcResult">Enter two odds</p>
+  </div>
+
+  <button onclick="upgrade('pro')">🔓 Pro Live Scanner $4.99</button>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    function calc() {
+      const a = parseFloat(document.getElementById("o1").value);
+      const b = parseFloat(document.getElementById("o2").value);
+      if (!a || !b) return;
+      const arb = (1/a + 1/b) * 100;
+      const stake1 = Math.round(b/(a+b)*100);
+      const stake2 = Math.round(a/(a+b)*100);
+      document.getElementById("calcResult").innerHTML =
+        `Arbitrage: ${arb.toFixed(2)}%<br>Stake split: ${stake1}% vs ${stake2}%`;
+    }
+
+    function upgrade(t) {
+      tg.openInvoice("t.me/oddsbot?start=invoice_" + t);
+    }
+  </script>
+</body>
+</html>
