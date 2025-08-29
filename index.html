@@ -28,8 +28,6 @@
     <p id="calcResult">Enter two odds</p>
   </div>
 
-  <button onclick="upgrade('pro')">🔓 Pro Live Scanner $4.99</button>
-
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
     const tg = window.Telegram.WebApp;
@@ -44,10 +42,6 @@
       const stake2 = Math.round(a/(a+b)*100);
       document.getElementById("calcResult").innerHTML =
         `Arbitrage: ${arb.toFixed(2)}%<br>Stake split: ${stake1}% vs ${stake2}%`;
-    }
-
-    function upgrade(t) {
-      tg.openInvoice("https://t.me/$oKkjRyoriVUhAgAAzIygWT9_lpI");
     }
   </script>
 </body>
